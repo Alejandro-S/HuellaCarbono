@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Huella de Carbono</string>
+    <string name="menu_calculator_item">Calculadora</string>
+    <string name="menu_home_item">Inicio</string>
+</resources>
