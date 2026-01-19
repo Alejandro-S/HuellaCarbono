@@ -14,45 +14,42 @@
  * Licencia: MIT (https://opensource.org/licenses/MIT)
  */
 
-package com.asalazar.huellacarbono.ui.compose
+package com.asalazar.huellacarbono.ui.compose.util
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.asalazar.huellacarbono.R
-import com.asalazar.huellacarbono.ui.compose.util.CardTextTitle
-import com.asalazar.huellacarbono.ui.compose.util.InfoCard
-import com.asalazar.huellacarbono.ui.theme.HuellaCarbonoTheme
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 
 @Composable
-fun WhyReduceIt(modifier: Modifier = Modifier) {
-    InfoCard(modifier) {
-        WhyReduceItTitle()
-        WhyReduceItBody()
+fun InfoCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
+    Card(modifier) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.padding(16.dp),
+            content = content
+        )
     }
 }
 
-@Composable
-fun WhyReduceItTitle(modifier: Modifier = Modifier) {
-    CardTextTitle(stringResource(R.string.title_why_reduce), modifier = modifier)
-}
 
 @Composable
-fun WhyReduceItBody(modifier: Modifier = Modifier) {
+fun CardTextTitle(
+    title: String,
+    modifier: Modifier = Modifier
+) {
     Text(
-        text = stringResource(R.string.label_why_reduce),
-        style = MaterialTheme.typography.bodyMedium,
+        text = title,
+        style = MaterialTheme.typography.titleMedium,
+        fontWeight = FontWeight.Bold,
+        color = MaterialTheme.colorScheme.primary,
         modifier = modifier
     )
-}
-
-@Preview
-@Composable
-private fun WhyReduceItPreview() {
-    HuellaCarbonoTheme {
-        WhyReduceIt()
-    }
 }

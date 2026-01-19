@@ -23,10 +23,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asalazar.huellacarbono.R
+import com.asalazar.huellacarbono.ui.compose.util.MainTitleText
 import com.asalazar.huellacarbono.ui.theme.HuellaCarbonoTheme
 
 @Composable
@@ -48,14 +48,7 @@ fun WhatIsHuellaCarbonContent(modifier: Modifier = Modifier) {
 
 @Composable
 fun WhatIsHuellaCarbonTitle(modifier: Modifier = Modifier) {
-    Text(
-        stringResource(R.string.title_what_is),
-        modifier = modifier,
-        style = MaterialTheme.typography.headlineSmall.copy(
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary
-        )
-    )
+    MainTitleText(stringResource(R.string.title_what_is), modifier = modifier)
 }
 
 @Preview

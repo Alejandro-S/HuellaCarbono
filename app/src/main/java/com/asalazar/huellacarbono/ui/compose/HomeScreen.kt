@@ -30,7 +30,6 @@ import com.asalazar.huellacarbono.ui.theme.HuellaCarbonoTheme
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -38,9 +37,11 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         WhatIsHuellaCarbon()
+        GlobalContext()
         WhyReduceIt()
+        ComponentsDescription()
+        Sources()
     }
-
 }
 
 @Preview(showBackground = true)
