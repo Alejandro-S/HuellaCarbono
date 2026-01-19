@@ -10,4 +10,5 @@
     <string name="label_components_description_body">Nuestra calculadora considera tres pilares fundamentales sugeridos por la ONU:</string>
     <string name="label_intent_error">No se sudo abrir el enlace</string>
     <string name="title_sources">Referencias y Fuentes:</string>
+    <string name="title_tips">Acciones Recomendadas:</string>
 </resources>
