@@ -28,22 +28,50 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.asalazar.huellacarbono.R
-import com.asalazar.huellacarbono.calculator
-import com.asalazar.huellacarbono.home
 import com.asalazar.huellacarbono.ui.theme.HuellaCarbonoTheme
+
+val home = "home"
+val calculator = "calculator"
 
 @Composable
 fun HuellaCarbonoApp(modifier: Modifier = Modifier) {
+
+    val navController = rememberNavController()
+    val currentRoute by navController.currentBackStackEntryAsState()
+
     Scaffold(
         topBar = { TopBar() },
-        bottomBar = { BottomNavigationBar(home) {} },
+        bottomBar = {
+            BottomNavigationBar(currentRoute?.destination?.route) { route: String ->
+                navController.navigate(route) {
+                    popUpTo(navController.graph.startDestinationId) { saveState = true }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            }
+        },
         modifier = modifier
     ) { innerPadding ->
-        Text("Hola mundo", modifier = Modifier.padding(innerPadding))
+        NavHost(
+            navController,
+            startDestination = home,
+            modifier = Modifier
+                .padding(innerPadding)
+                .padding(horizontal = 16.dp)
+        ) {
+            composable(route = home) { HomeScreen() }
+            composable(route = calculator) { CalculatorScreen() }
+        }
     }
 }
 

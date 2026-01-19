@@ -14,25 +14,16 @@
  * Licencia: MIT (https://opensource.org/licenses/MIT)
  */
 
-package com.asalazar.huellacarbono
+package com.asalazar.huellacarbono.ui.compose
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.asalazar.huellacarbono.ui.compose.HuellaCarbonoApp
-import com.asalazar.huellacarbono.ui.theme.HuellaCarbonoTheme
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            HuellaCarbonoTheme {
-                HuellaCarbonoApp(modifier = Modifier.fillMaxSize())
-            }
-        }
+@Composable
+fun HomeScreen(modifier: Modifier = Modifier) {
+    Surface(modifier) {
+        Text("Home Screen")
     }
 }
