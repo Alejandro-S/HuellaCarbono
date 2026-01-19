@@ -23,6 +23,7 @@ import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -86,7 +87,7 @@ fun BottomNavigationBar(
     currentRoute: String?,
     navTo: (String) -> Unit
 ) {
-    NavigationBar {
+    NavigationBar(containerColor = MaterialTheme.colorScheme.surfaceVariant) {
         NavigationBarItem(
             icon = { Icon(Icons.Default.Home, contentDescription = null) },
             label = { Text(stringResource(R.string.menu_home_item)) },

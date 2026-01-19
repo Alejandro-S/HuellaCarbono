@@ -2,4 +2,8 @@
     <string name="app_name">Huella de Carbono</string>
     <string name="menu_calculator_item">Calculadora</string>
     <string name="menu_home_item">Inicio</string>
+    <string name="label_what_is_body">"Representa el volumen total de gases de efecto invernadero (GEI) producidos por las actividades económicas y cotidianas del ser humano. Se mide en toneladas de CO2 emitidas y es vital para entender nuestro impacto ambiental."</string>
+    <string name="title_what_is">¿Qué es la Huella de Carbono?</string>
+    <string name="title_why_reduce">¿Por qué reducirla?</string>
+    <string name="label_why_reduce">La ONU advierte que reducir estas emisiones es crucial para evitar un futuro catastrófico y frenar el cambio climático.</string>
 </resources>

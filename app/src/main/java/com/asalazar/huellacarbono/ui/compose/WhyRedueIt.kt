@@ -18,35 +18,56 @@ package com.asalazar.huellacarbono.ui.compose
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.asalazar.huellacarbono.R
 import com.asalazar.huellacarbono.ui.theme.HuellaCarbonoTheme
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
-
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
-    ) {
-        WhatIsHuellaCarbon()
-        WhyReduceIt()
+fun WhyReduceIt(modifier: Modifier = Modifier) {
+    Card(modifier) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.padding(16.dp)
+        ) {
+            WhyReduceItTitle()
+            WhyReduceItBody()
+        }
     }
-
 }
 
-@Preview(showBackground = true)
 @Composable
-private fun HomeScreenPreview() {
+fun WhyReduceItTitle(modifier: Modifier = Modifier) {
+    Text(
+        text = stringResource(R.string.title_why_reduce),
+        style = MaterialTheme.typography.titleMedium,
+        fontWeight = FontWeight.Bold,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun WhyReduceItBody(modifier: Modifier = Modifier) {
+    Text(
+        text = stringResource(R.string.label_why_reduce),
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = modifier
+    )
+}
+
+@Preview
+@Composable
+private fun WhyReduceItPreview() {
     HuellaCarbonoTheme {
-        HomeScreen(modifier = Modifier.padding(12.dp))
+        WhyReduceIt()
     }
 }
