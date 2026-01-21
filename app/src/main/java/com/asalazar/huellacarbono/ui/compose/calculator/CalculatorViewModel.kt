@@ -11,10 +11,58 @@ package com.asalazar.huellacarbono.ui.compose.calculator
  * educativos para la certificación del Tecnológico de Monterrey.
  */
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class CalculatorViewModel : ViewModel() {
 
+    private var electronicScore by mutableDoubleStateOf(0.0)
+    private var gasScore by mutableDoubleStateOf(0.0)
+    private var bulbScore by mutableDoubleStateOf(0.0)
+    private var selectedTransportEmissions = mutableStateListOf<Double>()
+    private var timeTransport by mutableDoubleStateOf(0.0)
+    private var flightScore by mutableDoubleStateOf(0.0)
+
+    val gasStepReady
+        get() = gasScore > 0
+    val bulbStepReady: Boolean
+        get() = bulbScore > 0
+    val transportModeReady: Boolean
+        get() = selectedTransportEmissions.isNotEmpty()
+    val timeTransportReady: Boolean
+        get() = timeTransport > 0
+    var isFlightStepReady by mutableStateOf(false)
+        private set
+
+    fun updateElectronicScore(score: Double) {
+        electronicScore = score
+    }
+
+    fun updateGasScore(score: Double) {
+        gasScore = score
+    }
+
+    fun updateBulbScore(score: Double) {
+        bulbScore = score
+    }
+
+    fun updateTransportModes(selected: List<Appliance>) {
+        selectedTransportEmissions.clear()
+        selectedTransportEmissions.addAll(selected.map { it.emissions })
+    }
+
+    fun updateTransportTime(score: Double) {
+        timeTransport = score
+    }
+
+    fun setFlightOption(appliance: Appliance) {
+        flightScore = appliance.emissions
+        isFlightStepReady = true
+    }
 
     fun calculateResult(
         homeSum: Double,

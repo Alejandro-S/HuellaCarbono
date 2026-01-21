@@ -29,13 +29,11 @@ import androidx.compose.ui.unit.dp
 import com.asalazar.huellacarbono.ui.theme.HuellaCarbonoTheme
 
 @Composable
-fun HomeScreen(
-    modifier: Modifier = Modifier,
-    onPillarClick: (pillar: String) -> Unit
-) {
+fun HomeScreen(onPillarClick: (pillar: String) -> Unit) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
+            .padding(horizontal = 16.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
@@ -51,6 +49,6 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenPreview() {
     HuellaCarbonoTheme {
-        HomeScreen(modifier = Modifier.padding(12.dp)) {}
+        HomeScreen {}
     }
 }

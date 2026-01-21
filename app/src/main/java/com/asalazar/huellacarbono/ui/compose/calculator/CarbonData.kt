@@ -72,11 +72,11 @@ object CarbonData {
 
     // 6. VUELOS (IDs 401-405)
     val flightOptions = listOf(
-        Appliance(401, "Viajero frecuente", 4600.0),
-        Appliance(402, "Internacionales", 2000.0),
-        Appliance(403, "Más de un nacional", 500.0),
-        Appliance(404, "Un nacional", 200.0),
-        Appliance(405, "No viajé", 0.0)
+        Appliance(401, "Viajero frecuente, más de dos vuelos internacionales y dos nacionales al año", 4600.0),
+        Appliance(402, "Aproximadamente un vuelo (ida y vuelta) internacional al año", 2000.0),
+        Appliance(403, " Más de un vuelo (ida y vuelta) nacional al año", 500.0),
+        Appliance(404, "Aproximadamente un vuelo (ida y vuelta) nacional al año", 200.0),
+        Appliance(405, "No suelo volar", 0.0)
     )
 }
 

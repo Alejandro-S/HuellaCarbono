@@ -105,9 +105,7 @@ fun HuellaCarbonoApp(modifier: Modifier = Modifier) {
         NavHost(
             navController,
             startDestination = Routers.Home.value,
-            modifier = Modifier
-                .padding(innerPadding)
-                .padding(horizontal = 16.dp)
+            modifier = Modifier.padding(innerPadding)
         ) {
             composable(route = Routers.Home.value) {
                 HomeScreen { pillar -> navController.navigate("${Routers.PillarDetail.Value}/$pillar") }
