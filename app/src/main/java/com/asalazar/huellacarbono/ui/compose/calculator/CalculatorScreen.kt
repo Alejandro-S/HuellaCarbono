@@ -14,18 +14,25 @@
  * Licencia: MIT (https://opensource.org/licenses/MIT)
  */
 
-package com.asalazar.huellacarbono.ui.compose
+package com.asalazar.huellacarbono.ui.compose.calculator
 
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.asalazar.huellacarbono.ui.theme.HuellaCarbonoTheme
 
 @Composable
-fun CalculatorScreen(modifier: Modifier = Modifier) {
-    Surface(modifier) {
-        Text("Calculator Screen")
+fun CalculatorScreen() {
+
+    Surface {
+        ElectronicAppliancesSection { }
     }
+}
 
-
+@Preview
+@Composable
+private fun CalculatorScreenPreview() {
+    HuellaCarbonoTheme {
+        CalculatorScreen()
+    }
 }

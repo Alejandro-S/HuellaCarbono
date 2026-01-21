@@ -11,4 +11,8 @@
     <string name="label_intent_error">No se sudo abrir el enlace</string>
     <string name="title_sources">Referencias y Fuentes:</string>
     <string name="title_tips">Acciones Recomendadas:</string>
+    <string name="title_about_screen">Sobre esta Aplicación</string>
+    <string name="title_about_info">Aviso Legal y Créditos</string>
+    <string name="label_about_info">La lógica de cálculo y los factores de emisión han sido obtenidos mediante ingeniería inversa del código fuente de Greenpeace México.</string>
+    <string name="menu_about_it">Acerca de</string>
 </resources>

@@ -20,7 +20,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.outlined.Calculate
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,6 +35,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,21 +45,41 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.asalazar.huellacarbono.R
+import com.asalazar.huellacarbono.ui.compose.calculator.CalculatorScreen
 import com.asalazar.huellacarbono.ui.theme.HuellaCarbonoTheme
 
 
 object Routers {
-    object Home {
-        val value = "home"
+
+    val bottomOptions = listOf(Routers.Home, Calculator, About)
+
+    interface IBottomOption {
+        val value: String
+        val label: Int
+        val icon: ImageVector
     }
 
-    object Calculator {
-        val value = "calculator"
+    object Home : IBottomOption {
+        override val value = "home"
+        override val label: Int = R.string.menu_home_item
+        override val icon: ImageVector = Icons.Default.Home
+    }
+
+    object Calculator : IBottomOption {
+        override val value = "calculator"
+        override val label: Int = R.string.menu_calculator_item
+        override val icon: ImageVector = Icons.Outlined.Calculate
     }
 
     object PillarDetail {
-        val value = "pillar_detail"
-        val param = "pillar"
+        const val Value = "pillar_detail"
+        const val Param = "pillar"
+    }
+
+    object About : IBottomOption {
+        override val value = "about"
+        override val label: Int = R.string.menu_about_it
+        override val icon: ImageVector = Icons.Default.Info
     }
 }
 
@@ -88,13 +110,14 @@ fun HuellaCarbonoApp(modifier: Modifier = Modifier) {
                 .padding(horizontal = 16.dp)
         ) {
             composable(route = Routers.Home.value) {
-                HomeScreen { pillar -> navController.navigate("${Routers.PillarDetail.value}/$pillar") }
+                HomeScreen { pillar -> navController.navigate("${Routers.PillarDetail.Value}/$pillar") }
             }
             composable(route = Routers.Calculator.value) { CalculatorScreen() }
-            composable(route = "${Routers.PillarDetail.value}/{${Routers.PillarDetail.param}}") { entry ->
-                val pillar = entry.arguments?.getString(Routers.PillarDetail.param) ?: ""
+            composable(route = "${Routers.PillarDetail.Value}/{${Routers.PillarDetail.Param}}") { entry ->
+                val pillar = entry.arguments?.getString(Routers.PillarDetail.Param) ?: ""
                 PillarDetail(pillar)
             }
+            composable(route = Routers.About.value) { AboutScreen() }
         }
     }
 }
@@ -110,7 +133,7 @@ fun TopBar(
         title = { Text(stringResource(R.string.app_name), fontWeight = FontWeight.Bold) },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         navigationIcon = {
-            if (currentRoute != Routers.Home.value && currentRoute != Routers.Calculator.value) {
+            if (!Routers.bottomOptions.any { it.value == currentRoute }) {
                 IconButton(onClick = onBackStack) {
                     Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
                 }
@@ -126,19 +149,14 @@ fun BottomNavigationBar(
     navTo: (String) -> Unit
 ) {
     NavigationBar(containerColor = MaterialTheme.colorScheme.surfaceVariant) {
-        NavigationBarItem(
-            icon = { Icon(Icons.Default.Home, contentDescription = null) },
-            label = { Text(stringResource(R.string.menu_home_item)) },
-
-            selected = currentRoute == Routers.Home.value,
-            onClick = { navTo(Routers.Home.value) }
-        )
-        NavigationBarItem(
-            icon = { Icon(Icons.Outlined.Build, contentDescription = null) },
-            label = { Text(stringResource(R.string.menu_calculator_item)) },
-            selected = currentRoute == Routers.Calculator.value,
-            onClick = { navTo(Routers.Calculator.value) }
-        )
+        Routers.bottomOptions.forEach { option ->
+            NavigationBarItem(
+                icon = { Icon(option.icon, contentDescription = null) },
+                label = { Text(stringResource(option.label)) },
+                selected = currentRoute == option.value,
+                onClick = { navTo(option.value) }
+            )
+        }
     }
 }
 
