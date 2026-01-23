@@ -16,6 +16,8 @@
 
 package com.asalazar.huellacarbono.ui.compose.calculator
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,24 +26,41 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.asalazar.huellacarbono.ui.theme.HuellaCarbonoTheme
 
 @Composable
 fun CalculatorScreen() {
     val innerNavController = rememberNavController()
+    val navBackStackEntry by innerNavController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route ?: "step1"
+    val targetProgress = getProgressForRoute(currentRoute)
+
+    val animatedProgress by animateFloatAsState(
+        targetValue = targetProgress,
+        animationSpec = tween(durationMillis = 500),
+        label = "ProgressBarAnimation"
+    )
+
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
+
             LinearProgressIndicator(
-                progress = { 0.5f }, //TODO: Add calculation to end developer
-                modifier = Modifier.fillMaxWidth()
+                progress = { animatedProgress },
+                modifier = Modifier.fillMaxWidth(),
+                color = Color(0xFF3AAE2A),
+                trackColor = Color(0xFFE0E0E0)
             )
+
             CalculatorInnerNavHost(
                 innerNavController = innerNavController,
                 modifier = Modifier
@@ -113,6 +132,81 @@ fun CalculatorInnerNavHost(
                 onNext = { innerNavController.navigate("step7") }
             )
         }
+
+        composable(route = "step7") {
+            MeatConsumptionSection(
+                calculatorViewModel::setMeatScore,
+                enabledNextButton = calculatorViewModel.isMeatSectionReady,
+                onBack = { innerNavController.navigateUp() },
+                onNext = { innerNavController.navigate("step8") })
+        }
+
+        composable(route = "step8") {
+            PlasticEmissionSection(
+                setPlastic = calculatorViewModel::setPlastic,
+                onBack = { innerNavController.navigateUp() },
+                onNext = { innerNavController.navigate("step9") },
+                isPlasticStepReady = calculatorViewModel.isPlasticStepReady
+            )
+        }
+        composable(route = "step9") {
+            ClothingEmissionSection(
+                setClothing = calculatorViewModel::setClothing,
+                onBack = { innerNavController.navigateUp() },
+                onNext = { innerNavController.navigate("step10") },
+                isClothingStepReady = calculatorViewModel.isClothingStepReady
+            )
+        }
+
+        composable(route = "step10") {
+            DeviceRenewalSection(
+                setDeviceScore = calculatorViewModel::setDeviceScore,
+                onBack = { innerNavController.navigateUp() },
+                onNext = { innerNavController.navigate("result") },
+                isDeviceStepReady = calculatorViewModel.isDeviceStepReady
+            )
+        }
+
+        composable("result") {
+            val sumHome = calculatorViewModel.sumHome
+            val sumTransport = calculatorViewModel.sumTransport
+            val sumConsumption = calculatorViewModel.sumConsumption
+
+            ResultsSection(
+                result = calculatorViewModel.getResultData(),
+                sumHome = sumHome,
+                colorHome = calculatorViewModel.getColorForCategory(sumHome, 854.0),
+                sumTransport = sumTransport,
+                colorTransport = calculatorViewModel.getColorForCategory(sumTransport, 4080.0),
+                sumConsumption = sumConsumption,
+                colorConsumption = calculatorViewModel.getColorForCategory(sumConsumption, 2249.0)
+            ) {
+                calculatorViewModel.resetCalculator()
+                innerNavController.navigate("step1") {
+                    popUpTo(innerNavController.graph.id) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+            }
+        }
+    }
+}
+
+private fun getProgressForRoute(route: String): Float {
+    return when (route) {
+        "step1" -> 0.1f
+        "step2" -> 0.2f
+        "step3" -> 0.3f
+        "step4" -> 0.4f
+        "step5" -> 0.5f
+        "step6" -> 0.6f
+        "step7" -> 0.7f
+        "step8" -> 0.8f
+        "step9" -> 0.9f
+        "step10" -> 1.0f
+        "result" -> 1.0f
+        else -> 0.0f
     }
 }
 

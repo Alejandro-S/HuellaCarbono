@@ -78,6 +78,20 @@ object CarbonData {
         Appliance(404, "Aproximadamente un vuelo (ida y vuelta) nacional al año", 200.0),
         Appliance(405, "No suelo volar", 0.0)
     )
+
+    val plasticOptions = listOf(
+        Appliance(501, "Diario.", 8.0),
+        Appliance(502, "De vez en cuando - 1 vez por semana.", 3.0),
+        Appliance(503, "Rara vez.", 1.0),
+        Appliance(504, "No uso plástico.", 0.0)
+    )
+
+    val clothingOptions = listOf(
+        Appliance(601, "Siempre es nueva y de importación.", 403.0),
+        Appliance(602, "Siempre es nueva y nacional.", 254.0),
+        Appliance(603, "De segunda mano.", 127.0),
+        Appliance(604, "La reparo y reutilizo.", 85.0)
+    )
 }
 
 object CarbonMatrixData {
@@ -92,22 +106,40 @@ object CarbonMatrixData {
         val labels = listOf("Diario", "4-6 días", "1-3 días", "No consumo")
 
         return labels.mapIndexed { index, label ->
-            Appliance(id = baseId + index, name = "$type: $label", emissions = emissions[index])
+            Appliance(id = baseId + index, name = label, emissions = emissions[index])
         }
     }
 
     // 10. RENOVACIÓN DE DISPOSITIVOS (Prefijo 8000)
-    fun getDeviceOptions(type: String): List<Appliance> {
-        val (baseId, emissions) = when(type) {
-            "Celular" -> 8100 to listOf(120.0, 60.0, 25.0, 15.0, 0.0)
-            "Tablet" -> 8200 to listOf(340.0, 170.0, 68.0, 43.0, 0.0)
-            "PC" -> 8300 to listOf(700.0, 350.0, 140.0, 88.0, 0.0)
-            else -> 8400 to listOf(180.0, 90.0, 36.0, 22.0, 0.0) // Consola
-        }
-        val labels = listOf("Cada 6 meses", "Cada año", "2-3 años", "Más de 3 años", "No tengo")
-
-        return labels.mapIndexed { index, label ->
-            Appliance(id = baseId + index, name = "$type: $label", emissions = emissions[index])
-        }
+    fun getDeviceOptions(device: String): List<Appliance> = when (device) {
+        "Celular" -> listOf(
+            Appliance(701, "Cada 6 meses", 120.0),
+            Appliance(702, "Cada año", 60.0),
+            Appliance(703, "De 2 a 3 años", 25.0),
+            Appliance(704, "Más de 3 años", 15.0),
+            Appliance(705, "No tengo este dispositivo", 0.0)
+        )
+        "Tableta" -> listOf(
+            Appliance(711, "Cada 6 meses", 340.0),
+            Appliance(712, "Cada año", 170.0),
+            Appliance(713, "De 2 a 3 años", 68.0),
+            Appliance(714, "Más de 3 años", 43.0),
+            Appliance(715, "No tengo este dispositivo", 0.0)
+        )
+        "Computadora" -> listOf(
+            Appliance(721, "Cada 6 meses", 700.0),
+            Appliance(722, "Cada año", 350.0),
+            Appliance(723, "De 2 a 3 años", 140.0),
+            Appliance(724, "Más de 3 años", 88.0),
+            Appliance(725, "No tengo este dispositivo", 0.0)
+        )
+        "Consola de videojuegos" -> listOf(
+            Appliance(731, "Cada 6 meses", 180.0),
+            Appliance(732, "Cada año", 90.0),
+            Appliance(733, "De 2 a 3 años", 36.0),
+            Appliance(734, "Más de 3 años", 22.0),
+            Appliance(735, "No tengo este dispositivo", 0.0)
+        )
+        else -> emptyList()
     }
 }
