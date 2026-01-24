@@ -43,26 +43,22 @@ A continuación, se presentan las evidencias del funcionamiento de la aplicació
 ### 1. Navegación Global mediante Bottom Navigation
 Muestra la transición fluida entre los módulos principales de la aplicación utilizando la barra de navegación inferior.
 
-<video src="metadata/BottomNavigation.mp4" width="320" controls>
-  Tu navegador no soporta el elemento de video.
-</video>
+https://github.com/user-attachments/assets/cbc934a3-7bee-4789-9fc7-8d9fcdb57d7e
 
 ### 2. Navegación con Envío de Parámetros
 Demostración del paso de argumentos entre el menú principal y la pantalla de detalles, permitiendo visualizar información dinámica según el pilar seleccionado.
 
-<video src="metadata/PillarNavigation.mp4" width="320" controls>
-  Tu navegador no soporta el elemento de video.
-</video>
+https://github.com/user-attachments/assets/54d7d702-173c-4b23-9639-62628ecf555c
 
 ### 3. Integración con Navegador Web Externo
-Uso de **Intents** explícitos para abrir páginas de referencia y fuentes oficiales en el navegador del dispositivo, enriqueciendo el contenido educativo de la app.
+Uso de **Intents** explícitos para abrir páginas de referencia y fuentes oficiales en el navegador del dispositivo, enriqueciendo el contenido educativo de la app. **Nota:** En el video no se observa la carga de pagina por ser un emulador que no tiene configurado la cuenta de Google
+
+https://github.com/user-attachments/assets/876d2e32-b717-4cbe-82fe-383a2564b1ac
 
 ### 4. Navegación Interna de la Calculadora
 Muestra el flujo secuencial del `InnerNavHost`, la validación de estados en el `ViewModel` y la actualización en tiempo real del `LinearProgressIndicator`.
 
-<video src="metadata/CalculatorNavigation.mp4" width="320" controls>
-  Tu navegador no soporta el elemento de video.
-</video>
+https://github.com/user-attachments/assets/5bf0d413-7d05-41a8-8eb0-a0858edeb988
 
 ## 📄 Créditos y Lógica de Cálculo
 Esta aplicación ha sido desarrollada con fines educativos. La lógica de cálculo, los coeficientes de emisión de $CO_{2}e$, las categorías de segmentación y los mensajes de interpretación han sido adaptados mediante ingeniería inversa de la calculadora oficial de **Greenpeace**.
